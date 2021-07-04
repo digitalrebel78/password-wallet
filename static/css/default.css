@@ -1,0 +1,23 @@
+.control-group {
+	max-width: 400px;
+	margin: auto;
+}
+a {
+	max-width: 400px;
+	margin: auto;
+}
+a:link {
+	color: red;
+}
+
+a:visited {
+	color: green;
+}
+
+a:hover {
+	color: hotpink;
+}
+
+a:active {
+	color: blue;
+}
