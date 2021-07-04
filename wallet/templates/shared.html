@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+  </head>
+  <body style="margin-right: auto; width: 8em">
+		<p>Your shared passwords:</p>
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">login</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">password</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">web address</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">description</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">shared to</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">withdraw sharing</th>
+            </tr>
+            {% for item in out_data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.password }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.web_address }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.description }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.user_login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/shared/" method="post">
+						{% csrf_token %}
+						<button class="form-horizontal" type='submit'>withdraw</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="user_login" name="user_login"  placeholder="" value=None>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="user_delete" name="user_delete"  placeholder="" value={{ item.user_login }}>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="id_password" name="id_password"  placeholder="" value={{ item.id_password }}>
+							</div>
+						</div>
+					</form>
+				</td>
+            </tr>
+            {% endfor %}
+        </table>
+		<p>Shared passwods from other users:</p>
+		<table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">login</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">password</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">web address</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">description</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">shared by</th>
+            </tr>
+            {% for item in in_data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.password }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.web_address }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.description }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.user_login }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+		<br />
+        <a href="../main">Back</a>
+  </body>
+</html>

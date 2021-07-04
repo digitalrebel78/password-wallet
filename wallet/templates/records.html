@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+  </head>
+  <body style="margin-right: auto; width: 8em">
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">login</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">password</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">web address</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">description</th>
+				<th style="border: 1px solid black; border-collapse: collapse;">last usage date</th>
+				<th style="border: 1px solid black; border-collapse: collapse;">restore</th>
+            </tr>
+            {% for item in data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.password }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.web_address }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.description }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.lastTime }}</td>
+				<td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/records/" method="post">
+					{% csrf_token %}
+					<button class="form-horizontal" type='submit'>restore</button>
+					<div class="control-group">
+						<div class="controls">
+							<input type="hidden" type="text" id="restore" name="restore"  value={{ item.id }}>
+						</div>
+					</div>
+					</form>
+				</td>
+            </tr>
+            {% endfor %}
+        </table>
+		<br />
+        <a href="../main">Back</a>
+        <br />
+  </body>
+</html>

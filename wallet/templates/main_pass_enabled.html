@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  </head>
+  <body style="margin-right: auto; width: 8em">
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">login</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">password</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">web address</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">description</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">edit</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">edit history</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">delete</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">share</th>
+            </tr>
+            {% for item in data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.password }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.web_address }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.description }}</td>
+				<td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/edit/" method="get">
+					{% csrf_token %}
+						<button class="form-horizontal" type='submit'>edit</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="id_password" name="id_password"  placeholder="" value={{ item.id }}>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="edit" name="edit"  placeholder="">
+							</div>
+						</div>
+					</form>
+				</td>
+				<td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/records/" method="get">
+					{% csrf_token %}
+						<button class="form-horizontal" type='submit'>read</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="id_password" name="id_password"  placeholder="" value={{ item.id }}>
+							</div>
+						</div>
+					</form>
+				</td>
+				<td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/main/" method="post">
+					{% csrf_token %}
+						<button class="form-horizontal" type='submit'>delete</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="id_password" name="id_password"  placeholder="">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="delete" name="delete"  placeholder="" value={{ item.id }}>
+							</div>
+						</div>
+					</form>
+				</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">
+					<form action="/shared/" method="post">
+					{% csrf_token %}
+						<button class="form-horizontal" type='submit'>share with</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="text" id="user_login" name="user_login"  placeholder="user login">
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="user_delete" name="user_delete"  placeholder="" value=None>
+							</div>
+						</div>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="id_password" name="id_password"  placeholder="" value={{ item.id }}>
+							</div>
+						</div>
+					</form>
+				</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br />
+		<form action="/main/" method="post">
+					{% csrf_token %}
+						<button class="form-horizontal" type='submit'>Disable edit mode</button>
+						<div class="control-group">
+							<div class="controls">
+								<input type="hidden" id="enable" name="enable"  placeholder="" value="False">
+							</div>
+						</div>
+					</form>
+        <br />
+        <form class="form-vertical" name="Form" action="/main/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="username">login</label>
+            <div class="controls">
+                <input type="text" id="login" name="login"  placeholder="login">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">password</label>
+            <div class="controls">
+                <input type="text" name="password" id="password" placeholder="password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="address">web address</label>
+            <div class="controls">
+                <input type="text" name="address" id="address" placeholder="web address">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="description">description</label>
+            <div class="controls">
+                <input type="text" name="description" id="description" placeholder="description">
+            </div>
+        </div>
+        <br />
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Add</button>
+            </div>
+        </div>
+        </form>
+		<br />
+        <a href="../logs">Logs</a>
+        <br />
+        <a href="../actionlogs">Action logs</a>
+        <br />
+		<a href="../shared">Shared passwords</a>
+        <br />
+        <a href="../change_master">Change master password</a>
+        <br />
+        <a href="../change_password">Change account (!) password</a>
+        <br />
+        <a href="../logout">Logout</a>
+  </body>
+</html>

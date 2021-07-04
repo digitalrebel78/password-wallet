@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+  </head>
+  <body style="margin-right: auto; width: 8em">
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">date</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">successful</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">ip</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">blocked until</th>
+            </tr>
+            {% for item in data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.date }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.isSuccessful }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.ip }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.blockadeTime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <form class="form-vertical" name="Form" action="/main/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+		
+		<p>Amount of last successful attempts is {{ count }}</p>
+        
+        <br />
+        <a href="../main">Back</a>
+  </body>
+</html>

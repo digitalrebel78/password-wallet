@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login Page</title>
+  </head>
+  <body>
+    <div id="login">
+        <form class="form-horizontal" name="LoginForm" action="/change_master/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="old_password">Old master password</label>
+            <div class="controls">
+                <input type="password" id="old_password" name="old_password"  placeholder="Old Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password">New master password</label>
+            <div class="controls">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+        </div>
+        <div class="control-group">
+            <label class="control-label" for="password_copy">New  master password</label>
+            <div class="controls">
+                <input type="password" name="password_copy" id="password_copy" placeholder="Password">
+            </div>
+        </div>
+        <br />
+        <div class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Change</button>
+            </div>
+        </div>
+        </form>
+        <br />
+        <a href="../main">Back</a>
+    </div>
+  </body>
+</html>

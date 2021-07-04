@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+  </head>
+  <body style="margin-right: auto; width: 8em">
+        <form id="master" class="form-horizontal" name="MasterForm" action="/main/" method="get">
+        {{form.master}}
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}
+        <div class="control-group">
+            <label class="control-label" for="master_password">Master password</label>
+            <div class="controls">
+                <input type="password" name="master_password" id="master_password" placeholder="Master password">
+            </div>
+        </div>
+        <br />
+        <div id="master_button" class="control-group">
+            <div class="controls">
+                <button type="submit" class="btn">Decrypt</button>
+            </div>
+        </div>
+        </form>
+        <br />
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">login</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">password</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">web address</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">description</th>
+            </tr>
+            {% for item in data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.login }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.password }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.web_address }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.description }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+		<br />
+        <a href="../logs">Logs</a>
+        <br />
+        <a href="../change_password">Change account (!) password</a>
+        <br />
+        <a href="../logout">Logout</a>
+  </body>
+</html>

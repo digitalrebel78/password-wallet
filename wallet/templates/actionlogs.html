@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Password Wallet</title>
+  </head>
+  <body style="margin-right: auto; width: 8em">
+        <table style="border: 1px solid black; width: 300%; border-collapse: collapse;">
+            <tr>
+                <th style="border: 1px solid black; border-collapse: collapse;">function</th>
+                <th style="border: 1px solid black; border-collapse: collapse;">time</th>
+            </tr>
+            {% for item in data %}
+            <tr> 
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.function }}</td>
+                <td style="border: 1px solid black; border-collapse: collapse;">{{ item.accessTime }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <br />
+        <!--<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+        {% csrf_token %}
+        {% if next %}
+            <input type="hidden" name="next" value="{{ next }}" />
+        {% endif %}-->
+			<table>
+			<tr>
+			<th>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<button class="form-horizontal" type='submit'>All</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="all">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>READ</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="READ">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>CREATE</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="CREATE">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>UPDATE</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="UPDATE">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>DELETE</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="DELETE">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>SHARE</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="SHARE">
+				</div>
+			</div>
+			</th>
+			</form>
+			<form class="form-horizontal" name="Form" action="/actionlogs/" method="post">
+			{% csrf_token %}
+			<th>
+			<button class="form-horizontal" type='submit'>WITHDRAW</button>
+			<div class="control-group">
+				<div class="controls">
+				<input type="hidden" id="select" name="select"  value="WITHDRAW">
+				</div>
+			</div>
+			</form>
+			</th>
+			</tr>
+			</table>
+        <br />
+        <a href="../main">Back</a>
+  </body>
+</html>
